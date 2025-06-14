@@ -1,37 +1,76 @@
 <html>
-    <h1>
-        jogo da velha
-    </h1>
-    <style>
-        #game {
-            display: grid;
-            grid-template-columns: lfr lfr lfr;
-        }
-    </style>
-    <head>
-    <body>
-       <div id="game"></div>
-       <script>
-        const = jogadas =[
-            '','','',
-            '','','',
-            '','','',
-       ] 
-        function fazerjogada(posiçao) {
-            jogadas [posicao] = "X";
-            desenhaBotoes[];
+<h1>
+    jogo da velha
+</h1>
+<style>
+    #game {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+    button{
+        height: 50px;
+    }
+</style>
+
+<head>
+
+<body>
+    <div id="game"></div>
+    <script>
+        const jogadas = [
+            '', '', '',
+            '', '', '',
+            '', '', '',
+        ]
+        let jogadordavez = "X"
+
+        function fazerjogada(posicao) {
+            jogadas[posicao] = jogadordavez;
+            desenhaBotoes();
+
+            if (jogadordavez == "X") {
+                jogadordavez = "O"
+            } else {
+                jogadordavez = "X";
+            }
+            verificaganhador()
         }
 
-        function desenhaBotoes[] {
-            const game = document.querySelector(#game)
+        function desenhaBotoes() {
+            const game = document.querySelector('#game')
             game.innerHTML = "";
-            for (let i= 0; i<9; i++){
-                game.innerHTML +=
-                <button onclick='fazerJogada[S(i)]'>
-                    S{jogadas[i]}
-                    </button>
+            for (let i = 0; i < 9; i++) {
+                game.innerHTML += `
+                <button onclick="fazerjogada(${i})">
+                    ${jogadas[i]}
+                    </button>`
             }
         }
-       </script>
-    </body>
+
+        function verificajogador(posicao1, posicao2, posicao3) {
+            if (jogadas[posicao1] == "" || jogadas[posicao2] == "" || jogadas[posicao3] == "") {
+                return false
+            }
+
+
+            return (
+                jogadas[posicao1] == jogadas[posicao2] &&
+                jogadas[posicao2] == jogadas[posicao3]
+
+            );
+        }
+        function verificaganhador() {
+            if (
+                verificajogador(0, 1, 2) || verificajogador(3, 4, 5) || verificajogador(6, 7, 8) || verificajogador(0, 3, 6) || verificajogador(1, 7, 3) || verificajogador(2, 5, 8) || verificajogador(0, 4, 6) || verificajogador(8, 4, 0)) {
+                alert("agora tem um ganhador, fim de jogo");
+                if (totaldejogadas == 9)
+                alert ("deu velhaaaaa");
+            }
+        }
+        
+
+        desenhaBotoes()
+    </script>
+</body>
+
 </html>
